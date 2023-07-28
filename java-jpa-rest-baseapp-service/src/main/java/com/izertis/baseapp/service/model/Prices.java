@@ -56,9 +56,6 @@ public class Prices {
     @Column(name = "EndDate")
     private Date endDate;
 
-    // @OneToOne(mappedBy = "prices",fetch = FetchType.LAZY,
-    // optional = true)
-
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")    
     @JsonManagedReference
@@ -67,9 +64,9 @@ public class Prices {
     public void setProduct(Product product) {
         if (product == null) {
             if (this.product != null)
-                this.product.setPrices(null);
+                this.product.setPrice(null);
         } else
-            product.setPrices(this);
+            product.setPrice(this);
 
         this.product = product;
     }

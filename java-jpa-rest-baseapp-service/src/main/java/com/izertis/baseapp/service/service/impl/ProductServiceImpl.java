@@ -50,8 +50,7 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	@Override
 	public Product save(final Product entity) {
-		entity.setPrices(entity.getPrices());
-		
+				
 		return this.productRepository.save(entity);
 	}
 

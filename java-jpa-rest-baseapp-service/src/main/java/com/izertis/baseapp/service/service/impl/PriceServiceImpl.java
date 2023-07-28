@@ -61,11 +61,9 @@ public class PriceServiceImpl implements PriceService {
         
         Optional<Product> productOptional = this.productRepository.findById(productid);
         Product product;
-                
+                                
         product = productOptional.get();
-        
-        entity.setProduct(product);
-
+                             
         return this.priceRepository.save(entity);
     }
 

@@ -53,12 +53,9 @@ public class Product extends Auditable {
 
     @Column(name = Columns.ENABLED)
     private boolean enabled;
-    
-    // @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    // @JoinColumn(name = "product_id")
 
     @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, optional = true, cascade = CascadeType.ALL)
     @JsonBackReference
-    private Prices prices;
+    private Prices price;
 
 }
