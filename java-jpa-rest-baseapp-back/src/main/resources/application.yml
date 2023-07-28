@@ -1,0 +1,98 @@
+---
+app:
+  persistence:
+    datasource:
+      driver-class-name: org.postgresql.Driver
+      username: postgres
+      password: admin123
+      url: jdbc:postgresql://127.0.0.1:5432/app?ssl=false
+    jpa:
+      dialect: org.hibernate.dialect.PostgreSQL10Dialect
+      generate-ddl: true
+      show-sql: false
+      properties:
+        hibernate.temp.use_jdbc_metadata_defaults: false
+  # Solr
+  solr:
+    enabled: false
+    base-url: http://localhost:8983/solr
+    collection-name: app
+
+
+  # CORS
+  cors:
+    enabled: true
+    allowedOrigin: '*'
+    allowedMethods: GET,POST,PUT,DELETE
+    allowedHeaders:
+      - Authorization
+      - X-Requested-With
+      - Content-Type
+    maxAge: 3600
+
+  # Cache configuration
+  cache:
+    embedded:
+      enabled: true
+
+  # Swagger
+  swagger:
+    enabled: true
+    secured: true
+    authServerUrl: ./oauth
+    authServerClientId: acme
+    authServerClientSecret: acmesecret
+    api-version: @project.version@
+
+  # OAuth
+  oauth:
+    authentication:
+      type: DB
+      ldap:
+        user-dn-patterns:
+          - sn={0},ou=People
+          - sn={0},ou=People2
+        group-search-base: ou=Group
+        group-search-filter: member={0}
+        context-source-url: ldap://192.168.1.219:389/dc=izertis,dc=com
+    authorization-server:
+      enabled: true
+      client-type: INMEMORY
+      client-id: acme
+      client-secret: acmesecret
+      token-store-type: INMEMORY
+    resource-server:
+      enabled: true
+      type: EMBED
+    unprotected-url:
+      - /public/**
+      - /oauth/**
+      - /management/**
+      - /swagger-ui/**
+      - /webjars/springfox-swagger-ui/**
+      - /swagger-resources/**
+      - /v3/**
+      - /doc.html
+      - /product/list
+                 
+## Actuator
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      show-details: always
+  endpoints:
+    web:
+      base-path: /management
+  server:
+    port: 9321
+  health:
+    mail:
+      enabled: false
+    ldap:
+      enabled: false
+    redis:
+      enabled: false
+    solr:
+      enabled: ${app.solr.enabled}

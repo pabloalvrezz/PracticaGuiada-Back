@@ -1,0 +1,12 @@
+---
+app:
+  # Persistence
+  persistence:
+    jpa:
+      generate-ddl: true
+      show-sql: true
+## Actuator
+management:
+  health:
+    redis:
+      enabled: false

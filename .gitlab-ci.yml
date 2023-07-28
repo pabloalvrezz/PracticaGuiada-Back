@@ -1,0 +1,18 @@
+stages:
+  - validate
+
+default:
+  image:
+    name: nrdmn/gommit
+    entrypoint: [""]
+  tags:
+    - linux
+    - docker
+
+validateMRMessage:
+  stage: validate
+  script:
+    - echo "$CI_MERGE_REQUEST_TITLE"
+    - /gommit check message "$CI_MERGE_REQUEST_TITLE"
+  only:
+    - merge_requests

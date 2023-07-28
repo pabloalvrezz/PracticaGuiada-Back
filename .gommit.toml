@@ -1,0 +1,17 @@
+[config]
+exclude-merge-commits=false
+check-summary-length=false
+summary-length=50
+
+[matchers]
+all="((?<!([A-Z]{1,10})-?)[A-Z]+-[0-9]+)[ - .*]?"
+renovate-configure="Configure Renovate"
+renovate-deps="chore\\(deps\\):"
+
+[examples]
+only_issue="""
+JIRAKEY-2365
+"""
+issue_and_message="""
+JIRAKEY-2365 - A commit message
+"""
