@@ -1,5 +1,6 @@
 package com.izertis.baseapp.service.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,5 +25,4 @@ public interface ProductRepository extends JpaRepository<Product, String>, JpaSp
 	@Query("update Product p set p.enabled = ?1 where p.id = ?2")
 	void setProductNonLocked(boolean productNonLocked, Long identifier);
 	
-	
-}
+	}

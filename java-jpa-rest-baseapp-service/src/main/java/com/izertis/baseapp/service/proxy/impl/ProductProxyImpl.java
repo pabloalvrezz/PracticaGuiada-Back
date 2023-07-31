@@ -19,60 +19,64 @@ import com.izertis.baseapp.service.service.ProductService;
 @Service
 public class ProductProxyImpl implements ProductProxy {
 
-	@Autowired
-	private ProductService productService;
+    @Autowired
+    private ProductService productService;
 
-	@Autowired
-	private ProductMapper productMapper;
+    @Autowired
+    private ProductMapper productMapper;
 
-	@Override
-	public Optional<ProductDto> find(Long identifier) {
-		return this.productMapper.convertToDto(this.productService.find(identifier));
-	}
+    @Override
+    public Optional<ProductDto> find(Long identifier) {
+        return this.productMapper.convertToDto(this.productService.find(identifier));
+    }
 
-	@Override
-	public Page<ProductDto> findPaginated(ProductFilter filter, Pageable pageable) {
-		return this.productMapper.convertToDto(this.productService.findPaginated(filter, pageable));
+    @Override
+    public Page<ProductDto> findPaginated(ProductFilter filter, Pageable pageable) {
+        return this.productMapper.convertToDto(this.productService.findPaginated(filter, pageable));
+    }
 
-	}
+    @Override
+    public List<ProductDto> findAll() {
+        return this.productMapper.convertToDto(this.productService.findAll());
+    }
 
-	@Override
-	public List<ProductDto> findAll() {
-		return this.productMapper.convertToDto(this.productService.findAll());
-	}
+    @Override
+    public Page<ProductDto> findPaginatedAvaibles(ProductFilter filter, Pageable pageable) {
+        return this.productMapper.convertToDto(this.productService.findPaginatedAvaibles(filter, pageable));
+    }
 
-	@Override
-	public ProductDto save(ProductDto entity) {
-		return this.productMapper.convertToDto(this.productService.save(this.productMapper.convertFromDto(entity)));
-	}
+    @Override
+    public ProductDto save(ProductDto entity) {
+        return this.productMapper.convertToDto(this.productService.save(this.productMapper.convertFromDto(entity)));
+    }
 
-	@Override
-	public List<ProductDto> save(Iterable<ProductDto> entities) {
-		return this.productMapper.convertToDto(this.productService.save(this.productMapper.convertFromDto(entities)));
-	}
+    @Override
+    public List<ProductDto> save(Iterable<ProductDto> entities) {
+        return this.productMapper.convertToDto(this.productService.save(this.productMapper.convertFromDto(entities)));
+    }
 
-	@Override
-	public ProductDto update(ProductDto entity) throws NoSuchEntityException {
-		final Product product = this.productMapper.updateFromDto(entity, this.productService.find(entity.getId())
-				.orElseThrow(() -> new NoSuchEntityException(String.format("Product %s not found", entity.getId()))));
+    @Override
+    public ProductDto update(ProductDto entity) throws NoSuchEntityException {
+        final Product product = this.productMapper.updateFromDto(entity, this.productService.find(entity.getId())
+                .orElseThrow(() -> new NoSuchEntityException(String.format("Product %s not found", entity.getId()))));
 
-		return this.productMapper.convertToDto(this.productService.update(product));
+        return this.productMapper.convertToDto(this.productService.update(product));
 
-	}
+    }
 
-	@Override
-	public void delete(ProductDto entity) {
-		this.productService.delete(this.productMapper.convertFromDto(entity));
-	}
+    @Override
+    public void delete(ProductDto entity) {
+        this.productService.delete(this.productMapper.convertFromDto(entity));
+    }
 
-	@Override
-	public void delete(Long identifier) {
-		this.productService.delete(identifier);
-	}
+    @Override
+    public void delete(Long identifier) {
+        this.productService.delete(identifier);
+    }
 
-	@Override
-	public void undelete(Long identifier) {
-		this.productService.unDelete(identifier);
-	}
+    @Override
+    public void undelete(Long identifier) {
+        this.productService.unDelete(identifier);
+    }
 
 }

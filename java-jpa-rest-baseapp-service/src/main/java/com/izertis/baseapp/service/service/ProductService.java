@@ -1,12 +1,12 @@
 package com.izertis.baseapp.service.service;
 
 import com.izertis.baseapp.service.filter.ProductFilter;
-import com.izertis.baseapp.service.filter.UserFilter;
 import com.izertis.baseapp.service.model.Product;
-import com.izertis.baseapp.service.model.User;
 
-import org.springframework.data.repository.NoRepositoryBean;
-import org.springframework.stereotype.Service;
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.izertis.abstractions.service.DeleteService;
 import com.izertis.abstractions.service.QueryService;
@@ -24,4 +24,8 @@ public interface ProductService
 	 * @param id
 	 */
 	void unDelete(final Long id);
+
+    Page<Product> findPaginatedAvaibles(ProductFilter filter,
+            final Pageable pageable);
+    
 }
