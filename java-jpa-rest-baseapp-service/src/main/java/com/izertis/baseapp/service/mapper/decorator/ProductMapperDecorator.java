@@ -1,7 +1,5 @@
 package com.izertis.baseapp.service.mapper.decorator;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -10,9 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import com.izertis.abstractions.search.PageImplHelper;
 import com.izertis.baseapp.service.dto.ProductDto;
 import com.izertis.baseapp.service.mapper.ProductMapper;
-import com.izertis.baseapp.service.mapper.UserMapper;
 import com.izertis.baseapp.service.model.Product;
-import com.izertis.baseapp.service.model.User;
 
 public abstract class ProductMapperDecorator implements ProductMapper {
 

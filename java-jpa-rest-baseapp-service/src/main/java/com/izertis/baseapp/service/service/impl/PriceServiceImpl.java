@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.izertis.abstractions.exception.NoSuchEntityException;
-import com.izertis.baseapp.service.dto.PriceDto;
 import com.izertis.baseapp.service.filter.PriceFilter;
 import com.izertis.baseapp.service.model.Prices;
 import com.izertis.baseapp.service.model.Product;

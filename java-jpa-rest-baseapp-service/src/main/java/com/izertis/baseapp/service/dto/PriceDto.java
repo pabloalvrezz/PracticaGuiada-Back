@@ -1,6 +1,6 @@
 package com.izertis.baseapp.service.dto;
 
-import java.sql.Date;
+    import java.sql.Date;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
