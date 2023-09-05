@@ -60,10 +60,10 @@ public class PriceServiceImpl implements PriceService {
     public Prices save(Prices entity, Long productid) {
         
         Optional<Product> productOptional = this.productRepository.findById(productid);
-        Product product;
-                                
-        product = productOptional.get();
-                             
+        Product product = productOptional.get();
+        
+        entity.setProduct(product);
+        
         return this.priceRepository.save(entity);
     }
 

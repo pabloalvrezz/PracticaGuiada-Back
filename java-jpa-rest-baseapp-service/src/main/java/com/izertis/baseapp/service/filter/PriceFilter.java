@@ -13,7 +13,6 @@ import com.izertis.abstractions.filter.AbstractJpaSpecification;
 import com.izertis.abstractions.filter.EntityFilter;
 import com.izertis.baseapp.service.model.Prices;
 import com.izertis.baseapp.service.model.Prices_;
-import com.izertis.baseapp.service.model.Product;
 
 public class PriceFilter extends AbstractJpaSpecification<Prices> implements EntityFilter{
 

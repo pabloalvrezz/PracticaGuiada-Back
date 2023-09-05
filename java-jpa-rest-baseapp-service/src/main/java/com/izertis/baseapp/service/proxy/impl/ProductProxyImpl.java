@@ -39,10 +39,10 @@ public class ProductProxyImpl implements ProductProxy {
     public List<ProductDto> findAll() {
         return this.productMapper.convertToDto(this.productService.findAll());
     }
-
+    
     @Override
-    public Page<ProductDto> findPaginatedAvaibles(ProductFilter filter, Pageable pageable) {
-        return this.productMapper.convertToDto(this.productService.findPaginatedAvaibles(filter, pageable));
+    public ProductDto findActivePrice(Long productId) {
+       return this.productMapper.convertToDto(this.productService.findActivePrice(productId));
     }
 
     @Override

@@ -38,7 +38,7 @@ public class ProductController {
     /**
      * DTO to entity mapper
      */
-   
+
     /**
      * Get all the products
      * 
@@ -49,17 +49,6 @@ public class ProductController {
 
         return this.productProxy.findAll();
     }
-
-    /**
-     * Get all the products without price
-     * 
-     * @return the products
-     */
-   @GetMapping(ProductController.Mappings.AVAIBLES)
-   private Page<ProductDto> getAvaibles(@ParameterObject final ProductFilter filter,
-           @ParameterObject final Pageable pageable){
-       return this.productProxy.findPaginatedAvaibles(filter, pageable);
-   }
 
     @GetMapping(ProductController.Mappings.SEARCH)
     private Page<ProductDto> searchProducts(@ParameterObject final ProductFilter filter,
@@ -75,9 +64,15 @@ public class ProductController {
      */
     @GetMapping(ProductController.Mappings.GET)
     public ProductDto getProduct(@PathVariable("id") final Long id) {
+        this.getActivePrice(id);
         return this.productProxy.find(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping(ProductController.Mappings.ACTIVE)
+    public ProductDto getActivePrice(@PathVariable("id") final Long productId) {
+        return this.productProxy.findActivePrice(productId);
+    }
+    
     /**
      * Update a product
      * 
@@ -169,5 +164,10 @@ public class ProductController {
          * Mapping for enable
          */
         protected static final String ENABLE = GET + "/enable";
+
+        /**
+         * Mapping for the current Price
+         */
+        private static final String ACTIVE = GET + "/active";
     }
 }

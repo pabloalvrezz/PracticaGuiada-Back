@@ -1,28 +1,18 @@
 package com.izertis.baseapp.service.model;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.LazyToOne;
-import org.hibernate.annotations.LazyToOneOption;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.izertis.baseapp.service.model.User.Columns;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -55,19 +45,9 @@ public class Prices {
 
     @Column(name = "EndDate")
     private Date endDate;
-
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_id")    
-    @JsonManagedReference
+  
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     private Product product;
-
-    public void setProduct(Product product) {
-        if (product == null) {
-            if (this.product != null)
-                this.product.setPrice(null);
-        } else
-            product.setPrice(this);
-
-        this.product = product;
-    }
+  
 }

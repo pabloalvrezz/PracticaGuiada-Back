@@ -50,7 +50,6 @@ public interface ProductMapper extends BaseMapper<Product, ProductDto> {
      * @return the list
      */
 	Iterable<Product> convertFromDto(Iterable<ProductDto> entities);
-
 	
 }
  	

@@ -32,8 +32,7 @@ public class ProductDto extends AuditableDto {
 	@NotNull
 	@Size(min = 1, max = 25)
 	private String name;
-	
-	
+		
 	@NotNull
 	@Size(min = 1, max = 25)
 	private String description;
@@ -42,8 +41,10 @@ public class ProductDto extends AuditableDto {
 	@Min(1)
 	private int stock;
 	
+	private double activePrice;
+	
 	@NotNull
 	private boolean enabled;
-		
-	private PriceDto price;
+			
+	private List<Prices> price;
 }

@@ -6,19 +6,12 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.springframework.beans.factory.annotation.Value;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.izertis.baseapp.service.model.User.Columns;
 import com.izertis.libraries.audit.jpa.model.Auditable;
 
@@ -50,12 +43,24 @@ public class Product extends Auditable {
 
     @Column(name = "Stock")
     private int stock;
-
+    
+    @Column(name = "price")
+    private double activePrice;
+    
     @Column(name = Columns.ENABLED)
     private boolean enabled;
+          
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Prices> prices = new ArrayList<Prices>();
+    
+    public void addPrice(Prices price) {
+        prices.add(price);
+        price.setProduct(this);
+    }
 
-    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, optional = true, cascade = CascadeType.ALL)
-    @JsonBackReference
-    private Prices price;
+    public void removePrice(Prices price) {
+        prices.remove(price);
+        price.setProduct(null);
+    }
 
 }
