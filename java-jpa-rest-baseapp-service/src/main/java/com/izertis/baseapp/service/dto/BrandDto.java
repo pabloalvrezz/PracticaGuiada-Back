@@ -36,4 +36,8 @@ public class BrandDto extends AuditableDto{
     
     @NotNull
     private String sector;
+    
+    @NotNull
+    private boolean enabled;
+    
 }

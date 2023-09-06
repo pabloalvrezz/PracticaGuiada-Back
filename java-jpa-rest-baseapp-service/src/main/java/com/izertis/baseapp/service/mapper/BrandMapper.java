@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 import org.springframework.data.domain.Page;
 
 import com.izertis.abstractions.search.PageImplHelper;
@@ -21,4 +22,6 @@ public interface BrandMapper extends BaseMapper<Brand, BrandDto>{
     List<BrandDto> convertToDto (List<Brand> entities);
     
     PageImplHelper<BrandDto> convertToDto(Page<Brand> page);
+    
+    Brand updateFromDto(BrandDto brandDto, @MappingTarget Brand entity);
 }

@@ -15,62 +15,81 @@ import com.izertis.baseapp.service.filter.BrandFilter;
 import com.izertis.baseapp.service.model.Brand;
 import com.izertis.baseapp.service.repository.BrandRepository;
 import com.izertis.baseapp.service.service.BrandService;
-import com.izertis.libraries.solr.annotation.IndexableClass;
+import com.izertis.libraries.solr.annotation.Indexable;
 
-@IndexableClass
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-public class BrandServiceImpl implements BrandService{
+public class BrandServiceImpl implements BrandService {
 
     @Autowired
     public BrandRepository brandRepository;
-    
+
     @Override
     public Optional<Brand> find(Long identifier) {
-        // TODO Auto-generated method stub
         return Optional.empty();
+    }
+    
+    @Override
+    public List<Brand> findAll() {
+        return null;
     }
 
     @Override
+    @Indexable(Brand.class)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public Page<Brand> findPaginated(BrandFilter filter, Pageable pageable) {
         Page<Brand> brand = this.brandRepository.findAll(filter, pageable);
-        
+
         return brand;
     }
 
     @Override
-    public List<Brand> findAll() {
-        return this.brandRepository.findAll();
-    }
-
-    @Override
+    @Indexable(Brand.class)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public Brand save(Brand entity) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
+    @Indexable(Brand.class)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public List<Brand> save(Iterable<Brand> entities) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
+    @Indexable(Brand.class)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public Brand save(Brand entity, Long brandId) {
+        return this.brandRepository.save(entity);
+    }
+
+    @Override
+    @Indexable(Brand.class)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public Brand update(Brand entity) throws NoSuchEntityException {
-        // TODO Auto-generated method stub
-        return null;
+        return this.brandRepository.save(entity);
     }
 
     @Override
+    @Indexable(Brand.class)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void delete(Brand entity) {
-        // TODO Auto-generated method stub
-        
+
     }
 
     @Override
-    public void delete(Long identifier) {
-        // TODO Auto-generated method stub
-        
+    @Indexable(Brand.class)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public void delete(Long id) {
+        this.brandRepository.setBrandNonLocked(false, id);
+    }
+
+    @Override
+    @Indexable(Brand.class)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public void unDelete(Long id) {
+        this.brandRepository.setBrandNonLocked(true, id);
     }
 
 }

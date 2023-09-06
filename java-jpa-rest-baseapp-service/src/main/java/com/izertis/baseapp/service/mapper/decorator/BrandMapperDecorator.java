@@ -1,5 +1,7 @@
 package com.izertis.baseapp.service.mapper.decorator;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,7 +11,7 @@ import com.izertis.baseapp.service.dto.BrandDto;
 import com.izertis.baseapp.service.mapper.BrandMapper;
 import com.izertis.baseapp.service.model.Brand;
 
-public abstract class BrandMapperDecorator implements BrandMapper {
+public class BrandMapperDecorator implements BrandMapper {
 
     @Autowired
     private BrandMapper brandMapper;
@@ -32,6 +34,11 @@ public abstract class BrandMapperDecorator implements BrandMapper {
     }
 
     @Override
+    public List<BrandDto> convertToDto(List<Brand> entities) {
+        return null;
+    }
+
+    @Override
     public Brand convertFromDto(BrandDto dto) {
         final Brand brand;
 
@@ -41,5 +48,15 @@ public abstract class BrandMapperDecorator implements BrandMapper {
         brand = this.brandMapper.convertFromDto(dto);
 
         return brand;
+    }
+
+    @Override
+    public Brand updateFromDto(BrandDto brandDto, Brand entity) {
+        final Brand brand;
+        
+        if(brandDto == null)
+            return null;
+        
+        return brand = this.brandMapper.updateFromDto(brandDto, entity);
     }
 }

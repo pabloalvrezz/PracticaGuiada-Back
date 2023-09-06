@@ -20,9 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.izertis.abstractions.exception.NoSuchEntityException;
 import com.izertis.baseapp.service.dto.PriceDto;
 import com.izertis.baseapp.service.filter.PriceFilter;
-import com.izertis.baseapp.service.mapper.PriceMapper;
 import com.izertis.baseapp.service.proxy.PriceProxy;
-import com.izertis.baseapp.service.service.PriceService;
 import com.izertis.baseapp.service.validation.group.Create;
 import com.izertis.baseapp.service.validation.group.Update;
 
@@ -36,18 +34,6 @@ public class PriceController {
 	 */
 	@Autowired
 	private PriceProxy priceProxy;
-
-	/**
-	 * Implementacion del price mapper
-	 */
-	@Autowired
-	private PriceMapper priceMapper;
-	
-	/**
-	 * Implementacion del price Service
-	 */
-	@Autowired
-	private PriceService priceService;
 
 	/**
 	 * Devuelve una lista con todos los precios

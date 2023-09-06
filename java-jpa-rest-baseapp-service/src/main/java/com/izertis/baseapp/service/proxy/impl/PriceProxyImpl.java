@@ -12,7 +12,6 @@ import com.izertis.abstractions.exception.NoSuchEntityException;
 import com.izertis.baseapp.service.dto.PriceDto;
 import com.izertis.baseapp.service.filter.PriceFilter;
 import com.izertis.baseapp.service.mapper.PriceMapper;
-import com.izertis.baseapp.service.mapper.ProductMapper;
 import com.izertis.baseapp.service.model.Prices;
 import com.izertis.baseapp.service.proxy.PriceProxy;
 import com.izertis.baseapp.service.service.PriceService;

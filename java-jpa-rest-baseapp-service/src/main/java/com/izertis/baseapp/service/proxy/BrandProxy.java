@@ -8,6 +8,10 @@ import com.izertis.baseapp.service.filter.BrandFilter;
 
 public interface BrandProxy extends QueryService<BrandDto, Long, BrandFilter>,
 SaveService<BrandDto>, DeleteService<BrandDto, Long>{
+
+    BrandDto save(BrandDto dto, Long brandId);
+
+    void undelete(Long id);
      
 
 }

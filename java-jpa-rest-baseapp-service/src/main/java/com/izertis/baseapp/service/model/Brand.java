@@ -1,6 +1,5 @@
 package com.izertis.baseapp.service.model;
 
-import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,4 +43,7 @@ public class Brand extends Auditable{
     
     @Column(name ="Sector")
     private String sector;
+    
+    @Column(name = "Enabled")
+    private boolean enabled;
 }
