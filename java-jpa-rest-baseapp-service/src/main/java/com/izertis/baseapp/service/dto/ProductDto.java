@@ -1,4 +1,5 @@
 package com.izertis.baseapp.service.dto;
+
 import java.util.List;
 
 import javax.validation.constraints.Min;
@@ -25,26 +26,26 @@ import lombok.ToString;
 @ToString(includeFieldNames = true)
 public class ProductDto extends AuditableDto {
 
-	@NotNull(groups = Update.class)
-	@Null(groups = Create.class)
-	private Long id;
-		
-	@NotNull
-	@Size(min = 1, max = 25)
-	private String name;
-		
-	@NotNull
-	@Size(min = 1, max = 25)
-	private String description;
-	
-	@NotNull 
-	@Min(1)
-	private int stock;
-	
-	private double activePrice;
-	
-	@NotNull
-	private boolean enabled;
-			
-	private List<Prices> price;
+    @NotNull(groups = Update.class)
+    @Null(groups = Create.class)
+    private Long id;
+
+    @NotNull
+    @Size(min = 1, max = 25)
+    private String name;
+
+    @NotNull
+    @Size(min = 1, max = 25)
+    private String description;
+
+    @NotNull
+    @Min(1)
+    private int stock;
+
+    private double activePrice;
+
+    @NotNull
+    private boolean enabled;
+
+    private List<Prices> price;
 }

@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.izertis.baseapp.service.model.User.Columns;
+import com.izertis.baseapp.service.service.impl.ProductServiceImpl;
 import com.izertis.libraries.audit.jpa.model.Auditable;
 
 import lombok.EqualsAndHashCode;
@@ -43,19 +44,20 @@ public class Product extends Auditable {
 
     @Column(name = "Stock")
     private int stock;
-    
+
     @Column(name = "price")
     private double activePrice;
-    
+
     @Column(name = Columns.ENABLED)
     private boolean enabled;
-          
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Prices> prices = new ArrayList<Prices>();
-    
+
     public void addPrice(Prices price) {
         prices.add(price);
         price.setProduct(this);
+
     }
 
     public void removePrice(Prices price) {

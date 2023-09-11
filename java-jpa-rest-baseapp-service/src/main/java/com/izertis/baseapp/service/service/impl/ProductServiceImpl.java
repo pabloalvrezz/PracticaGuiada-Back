@@ -33,9 +33,9 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    @Autowired 
+    @Autowired
     private ProductMapper mapper;
-    
+
     // @Autowired
     // private PriceRepository priceRepository;
 
@@ -47,6 +47,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<Product> findPaginated(ProductFilter filter, Pageable pageable) {
         Page<Product> page = this.productRepository.findAll(filter, pageable);
+        
+        // recuperamos el precio activo de cada producto
+        for(Product product: page) {
+            this.findActivePrice(product.getId());
+        }
 
         return page;
     }
@@ -65,13 +70,15 @@ public class ProductServiceImpl implements ProductService {
         List<Prices> prices = product.getPrices();
         Date actualDate = new Date();
         ProductDto dto = this.mapper.convertToDto(product);
-        
-        
-        for(Prices price: prices) {
-            if(price.getStartDate().before(actualDate) && price.getEndDate().after(actualDate))
+
+        // recorremos todos los precios del producto
+        for (Prices price : prices) {
+            // comparamos con la fecha actual
+            if (price.getStartDate().before(actualDate) && price.getEndDate().after(actualDate))
+                // el que este entre los valores que queremos lo establecemos como precio activo
                 product.setActivePrice(price.getCuantity());
         }
-        
+
         return product;
     }
 
@@ -79,7 +86,6 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @Override
     public Product save(final Product entity) {
-
         return this.productRepository.save(entity);
     }
 
@@ -94,6 +100,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @Override
     public Product update(Product entity) throws NoSuchEntityException {
+
         return this.productRepository.save(entity);
     }
 

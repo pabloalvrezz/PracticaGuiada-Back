@@ -11,12 +11,15 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.izertis.abstractions.exception.NoSuchEntityException;
+import com.izertis.baseapp.service.dto.ProductDto;
 import com.izertis.baseapp.service.filter.PriceFilter;
+import com.izertis.baseapp.service.mapper.ProductMapper;
 import com.izertis.baseapp.service.model.Prices;
 import com.izertis.baseapp.service.model.Product;
 import com.izertis.baseapp.service.repository.PriceRepository;
 import com.izertis.baseapp.service.repository.ProductRepository;
 import com.izertis.baseapp.service.service.PriceService;
+import com.izertis.baseapp.service.service.ProductService;
 
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -27,6 +30,12 @@ public class PriceServiceImpl implements PriceService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private ProductServiceImpl productService;
+
+    @Autowired
+    private ProductMapper productMapper;
 
     @Override
     public Optional<Prices> find(Long identifier) {
@@ -57,11 +66,12 @@ public class PriceServiceImpl implements PriceService {
 
     @Override
     public Prices save(Prices entity, Long productid) {
-        
         Optional<Product> productOptional = this.productRepository.findById(productid);
         Product product = productOptional.get();
-        
-        entity.setProduct(product);
+                
+        entity.setProduct(entity.getProduct());
+
+        this.productRepository.save(product);
         
         return this.priceRepository.save(entity);
     }

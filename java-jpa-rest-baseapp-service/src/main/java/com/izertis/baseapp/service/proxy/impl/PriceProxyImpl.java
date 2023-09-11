@@ -10,11 +10,15 @@ import org.springframework.stereotype.Service;
 
 import com.izertis.abstractions.exception.NoSuchEntityException;
 import com.izertis.baseapp.service.dto.PriceDto;
+import com.izertis.baseapp.service.dto.ProductDto;
 import com.izertis.baseapp.service.filter.PriceFilter;
 import com.izertis.baseapp.service.mapper.PriceMapper;
+import com.izertis.baseapp.service.mapper.ProductMapper;
 import com.izertis.baseapp.service.model.Prices;
+import com.izertis.baseapp.service.model.Product;
 import com.izertis.baseapp.service.proxy.PriceProxy;
 import com.izertis.baseapp.service.service.PriceService;
+import com.izertis.baseapp.service.service.ProductService;
 
 @Service
 public class PriceProxyImpl implements PriceProxy {
@@ -24,6 +28,12 @@ public class PriceProxyImpl implements PriceProxy {
 
     @Autowired
     private PriceMapper priceMapper;
+
+    @Autowired
+    private ProductMapper productMapper;
+
+    @Autowired
+    private ProductService productService;
 
     @Override
     public Optional<PriceDto> find(Long identifier) {
@@ -60,9 +70,12 @@ public class PriceProxyImpl implements PriceProxy {
     @Override
     public PriceDto save(PriceDto dto, Long productid) {
         Prices price = this.priceMapper.convertFromDto(dto);
-
         Prices savedPrice = this.priceService.save(price, productid);
-
+        Optional<ProductDto> productOptional = this.productMapper.convertToDto(this.productService.find(productid));
+        Product product = this.productMapper.convertFromDto(productOptional.get());
+        
+        product.addPrice(savedPrice);
+        
         return this.priceMapper.convertToDto(savedPrice);
     }
 

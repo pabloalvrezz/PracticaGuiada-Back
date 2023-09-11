@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -45,9 +48,9 @@ public class Prices {
 
     @Column(name = "EndDate")
     private Date endDate;
-  
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     private Product product;
-  
+
 }

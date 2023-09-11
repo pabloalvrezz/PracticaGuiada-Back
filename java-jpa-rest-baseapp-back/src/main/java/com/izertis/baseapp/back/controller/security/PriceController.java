@@ -34,7 +34,7 @@ public class PriceController {
 	 */
 	@Autowired
 	private PriceProxy priceProxy;
-
+		
 	/**
 	 * Devuelve una lista con todos los precios
 	 * 

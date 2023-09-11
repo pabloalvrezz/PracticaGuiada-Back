@@ -67,12 +67,17 @@ public class ProductController {
         this.getActivePrice(id);
         return this.productProxy.find(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
+    
+    @GetMapping(ProductController.Mappings.DETAILS)
+    public ProductDto getProductDetails(@PathVariable("id") final Long id) {
+        return this.productProxy.find(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
 
     @GetMapping(ProductController.Mappings.ACTIVE)
     public ProductDto getActivePrice(@PathVariable("id") final Long productId) {
         return this.productProxy.findActivePrice(productId);
     }
-    
+            
     /**
      * Update a product
      * 
@@ -149,6 +154,11 @@ public class ProductController {
          * Mapping for getbyId
          */
         protected static final String GET = "/{id}";
+        
+        /**
+         * Mapping for details
+         */
+        protected static final String DETAILS = "/search/details" + GET;
 
         /**
          * 
@@ -169,5 +179,6 @@ public class ProductController {
          * Mapping for the current Price
          */
         private static final String ACTIVE = GET + "/active";
+                                
     }
 }
