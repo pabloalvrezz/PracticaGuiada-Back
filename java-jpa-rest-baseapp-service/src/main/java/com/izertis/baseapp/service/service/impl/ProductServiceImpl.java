@@ -1,5 +1,6 @@
 package com.izertis.baseapp.service.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -47,9 +48,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<Product> findPaginated(ProductFilter filter, Pageable pageable) {
         Page<Product> page = this.productRepository.findAll(filter, pageable);
-        
+
         // recuperamos el precio activo de cada producto
-        for(Product product: page) {
+        for (Product product : page) {
             this.findActivePrice(product.getId());
         }
 
@@ -80,6 +81,20 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return product;
+    }
+
+    @Override
+    public List<Product> findSimilars(Long productId) {
+        List<Product> productos = this.productRepository.findAll(); // Lista con todos los productos
+        List<Product> similares = new ArrayList<Product>(); // Lista que almacenara todos los productos similares
+        Product productoSeleccionado = this.productRepository.findById(productId).get();
+        
+        for(Product product: productos) {
+            if((product.getId() != productoSeleccionado.getId()) && (product.getTipo() == productoSeleccionado.getTipo()))
+                similares.add(product);
+        }
+        
+        return similares;
     }
 
     @Indexable(Product.class)

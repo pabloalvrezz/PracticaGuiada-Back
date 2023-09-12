@@ -37,7 +37,7 @@ public interface ProductMapper extends BaseMapper<Product, ProductDto> {
 	 * @return the entity Dto
 	 */
 	List<ProductDto> convertToDto(List<Product> entities);
-
+		
 	Product updateFromDto(ProductDto dto, @MappingTarget Product entity);
 
 	PageImplHelper<ProductDto> convertToDto(Page<Product> page);

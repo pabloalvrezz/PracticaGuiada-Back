@@ -15,6 +15,7 @@ import com.izertis.abstractions.filter.EntityFilter;
 import com.izertis.baseapp.service.model.Prices;
 import com.izertis.baseapp.service.model.Product;
 import com.izertis.baseapp.service.model.Product_;
+import com.izertis.baseapp.service.model.Type;
 import com.izertis.baseapp.service.model.User;
 
 import lombok.Getter;
@@ -32,6 +33,8 @@ public class ProductFilter extends AbstractJpaSpecification<Product> implements 
 	private String description;
 	private int stock;
 	private Boolean enable;
+	private double activePrice;
+	private Type tipo;
 	
 	@Override
 	public Predicate toPredicate(final Root<Product> root, final CriteriaQuery<?> query,
@@ -42,7 +45,6 @@ public class ProductFilter extends AbstractJpaSpecification<Product> implements 
 		if (StringUtils.isNotBlank(this.name))
 			predicates
 					.add(this.createContainsIgnoreCase(root, criteriaBuilder, Product_.NAME, this.name));
-
 		
 		if (StringUtils.isNotBlank(this.description))
 			predicates
@@ -53,6 +55,12 @@ public class ProductFilter extends AbstractJpaSpecification<Product> implements 
 
 		if (this.enable != null)
 			predicates.add(this.createEquals(root, criteriaBuilder, Product_.ENABLED, this.enable));
+		
+		if(this.activePrice != 0)
+		    predicates.add(this.createEquals(root, criteriaBuilder, Product_.ACTIVE_PRICE, this.activePrice));
+		
+		if(tipo != null)
+		    predicates.add(this.createEquals(root, criteriaBuilder, Product_.TIPO, this.tipo));
 		
 		return criteriaBuilder.and(predicates.stream().toArray(Predicate[]::new));
 	}

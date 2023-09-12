@@ -1,5 +1,7 @@
 package com.izertis.baseapp.service.proxy;
 
+import java.util.List;
+
 import com.izertis.abstractions.service.DeleteService;
 import com.izertis.abstractions.service.QueryService;
 import com.izertis.abstractions.service.SaveService;
@@ -28,4 +30,13 @@ public interface ProductProxy extends QueryService<ProductDto, Long, ProductFilt
 	 */
 	 ProductDto findActivePrice(Long productId);
 	
+	 /**
+	  * Obtains the similar products
+	  * 
+	  * @param productId
+	  * 
+	  * @return an array with the products 
+	  */
+	 List<ProductDto>  findSimilars(Long productId);
+	 
 }

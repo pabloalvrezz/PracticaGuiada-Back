@@ -77,6 +77,11 @@ public class ProductController {
     public ProductDto getActivePrice(@PathVariable("id") final Long productId) {
         return this.productProxy.findActivePrice(productId);
     }
+    
+    @GetMapping(ProductController.Mappings.SIMILARS)
+    public List<ProductDto>  getSimilars(@PathVariable("id")final Long productId) {
+        return this.productProxy.findSimilars(productId);
+    }
             
     /**
      * Update a product
@@ -179,6 +184,11 @@ public class ProductController {
          * Mapping for the current Price
          */
         private static final String ACTIVE = GET + "/active";
+        
+        /**
+         * Mapping for the similar products 
+         */
+        private static final String SIMILARS = GET + "/similars";
                                 
     }
 }

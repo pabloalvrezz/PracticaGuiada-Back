@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -53,7 +55,11 @@ public class Product extends Auditable {
     
     @Column(name = "Url")
     private String url;
-
+   
+    @Enumerated(EnumType.STRING)
+    @Column(name ="Tipo")
+    private Type tipo;
+    
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Prices> prices = new ArrayList<Prices>();
 
