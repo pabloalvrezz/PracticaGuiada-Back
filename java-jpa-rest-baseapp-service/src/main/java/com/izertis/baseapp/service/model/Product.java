@@ -50,6 +50,9 @@ public class Product extends Auditable {
 
     @Column(name = Columns.ENABLED)
     private boolean enabled;
+    
+    @Column(name = "Url")
+    private String url;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Prices> prices = new ArrayList<Prices>();

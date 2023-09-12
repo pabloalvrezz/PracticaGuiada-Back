@@ -26,6 +26,7 @@ public class UserProxyImpl implements UserProxy {
     /**
      * Service layer.
      */
+    @Autowired
     private UserService service;
 
     /**

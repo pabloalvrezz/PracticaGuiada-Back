@@ -42,7 +42,7 @@ public class UserController {
 	/**
 	 * Proxy service implementation for {@link User}.
 	 */
-	
+    @Autowired
 	private UserProxy proxy;
 
 	/**

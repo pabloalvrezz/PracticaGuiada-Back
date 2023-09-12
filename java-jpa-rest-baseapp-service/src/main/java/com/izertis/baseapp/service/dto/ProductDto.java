@@ -41,11 +41,13 @@ public class ProductDto extends AuditableDto {
     @NotNull
     @Min(1)
     private int stock;
-
-    private double activePrice;
-
+    
     @NotNull
     private boolean enabled;
+    
+    private String url;
+    
+    private double activePrice;
 
     private List<Prices> price;
 }
