@@ -50,9 +50,32 @@ public class ProductController {
         return this.productProxy.findAll();
     }
 
+    /**
+     * Get all the products paginated
+     * 
+     * @param filter
+     * @param pageable
+     * 
+     * @return all the products
+     */
     @GetMapping(ProductController.Mappings.SEARCH)
     private Page<ProductDto> searchProducts(@ParameterObject final ProductFilter filter,
             @ParameterObject final Pageable pageable) {
+        return this.productProxy.findPaginated(filter, pageable);
+    }
+
+    /**
+     * Get all the enabled products
+     * 
+     * @param filter
+     * @param pageable
+     * 
+     * @return all the enabled products
+     */
+    @GetMapping(ProductController.Mappings.SEARCHACTIVE)
+    private Page<ProductDto> searchActiveProducts(@ParameterObject final ProductFilter filter,
+            @ParameterObject final Pageable pageable) {
+        filter.setEnable(true);
         return this.productProxy.findPaginated(filter, pageable);
     }
 
@@ -67,7 +90,7 @@ public class ProductController {
         this.getActivePrice(id);
         return this.productProxy.find(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
-    
+
     @GetMapping(ProductController.Mappings.DETAILS)
     public ProductDto getProductDetails(@PathVariable("id") final Long id) {
         return this.productProxy.find(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -77,12 +100,12 @@ public class ProductController {
     public ProductDto getActivePrice(@PathVariable("id") final Long productId) {
         return this.productProxy.findActivePrice(productId);
     }
-    
+
     @GetMapping(ProductController.Mappings.SIMILARS)
-    public List<ProductDto>  getSimilars(@PathVariable("id")final Long productId) {
+    public List<ProductDto> getSimilars(@PathVariable("id") final Long productId) {
         return this.productProxy.findSimilars(productId);
     }
-            
+
     /**
      * Update a product
      * 
@@ -92,7 +115,7 @@ public class ProductController {
      */
     // @Secured(Role.ADMINISTRATOR_ROLE)
     @PutMapping
-    public ProductDto update(@RequestBody @Validated(Update.class) final ProductDto dto) {
+    public ProductDto update(@RequestBody @Validated(Update.class) ProductDto dto) {
         try {
             return this.productProxy.update(dto);
         }
@@ -100,6 +123,7 @@ public class ProductController {
         catch (final NoSuchEntityException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+
     }
 
     /**
@@ -159,7 +183,7 @@ public class ProductController {
          * Mapping for getbyId
          */
         protected static final String GET = "/{id}";
-        
+
         /**
          * Mapping for details
          */
@@ -169,6 +193,8 @@ public class ProductController {
          * 
          */
         protected static final String SEARCH = "/search";
+
+        protected static final String SEARCHACTIVE = "/searchActive";
 
         /**
          * Mapping for disable
@@ -184,11 +210,11 @@ public class ProductController {
          * Mapping for the current Price
          */
         private static final String ACTIVE = GET + "/active";
-        
+
         /**
-         * Mapping for the similar products 
+         * Mapping for the similar products
          */
         private static final String SIMILARS = GET + "/similars";
-                                
+
     }
 }

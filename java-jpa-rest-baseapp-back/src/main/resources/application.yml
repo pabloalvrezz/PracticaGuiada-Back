@@ -73,7 +73,9 @@ app:
       - /swagger-resources/**
       - /v3/**
       - /doc.html
-      - /product/list
+      - /product
+      - /product/search
+      - /product/{id}
                  
 ## Actuator
 management:
