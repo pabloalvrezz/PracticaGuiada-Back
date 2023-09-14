@@ -68,17 +68,24 @@ public class PriceServiceImpl implements PriceService {
     public Prices save(Prices entity, Long productid) {
         Optional<Product> productOptional = this.productRepository.findById(productid);
         Product product = productOptional.get();
-                
+
         entity.setProduct(entity.getProduct());
 
         this.productRepository.save(product);
-        
+
         return this.priceRepository.save(entity);
     }
 
     @Override
     public Prices update(Prices entity) throws NoSuchEntityException {
+        Optional<Product> productOptional = this.productRepository.findById(entity.getProduct().getId());
+        Product product = productOptional.get();
+
+        if (entity.getCuantity() == 0 || entity.getEndDate() == null || entity.getStartDate() == null)
+            throw new NoSuchEntityException();
+
         entity.setProduct(entity.getProduct());
+        product.setActivePrice(entity.getCuantity());
 
         return this.priceRepository.save(entity);
     }

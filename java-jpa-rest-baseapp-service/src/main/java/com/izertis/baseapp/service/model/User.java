@@ -63,7 +63,8 @@ public class User extends Auditable implements UserDetails {
      */
     @Id
     @GeneratedValue(generator = JpaConstants.HIBERNATE_UUID_GENERATOR_NAME)
-    @GenericGenerator(name = JpaConstants.HIBERNATE_UUID_GENERATOR_NAME, strategy = JpaConstants.HIBERNATE_UUID_GENERATOR_STRATEGY)
+    @GenericGenerator(name = JpaConstants.HIBERNATE_UUID_GENERATOR_NAME, 
+    strategy = JpaConstants.HIBERNATE_UUID_GENERATOR_STRATEGY)
     @Column(name = Columns.ID)
     @EqualsAndHashCode.Include
     private String id;
@@ -78,73 +79,73 @@ public class User extends Auditable implements UserDetails {
     /**
      * Email.
      */
-    @Column(name = Columns.EMAIL)
+    @Column(name = Columns.EMAIL, nullable = false)
     private String email;
 
     /**
      * Flag that indicates whether user is enabled or not.
      */
-    @Column(name = Columns.ENABLED)
-    private boolean enabled;
+    @Column(name = Columns.ENABLED, nullable = true, columnDefinition = "Boolean default true")
+    private boolean enabled = true;
 
     /**
      * Flag that indicates whether credentials are expired or not.
      */
-    @Column(name = Columns.CREDENTIALS_NON_EXPIRED)
-    private boolean credentialsNonExpired;
+    @Column(name = Columns.CREDENTIALS_NON_EXPIRED, nullable = true, columnDefinition = "Boolean default true")
+    private boolean credentialsNonExpired = true;
 
     /**
      * Flag that indicates whether account are expired or not.
      */
-    @Column(name = Columns.ACCOUNT_NON_EXPIRED)
-    private boolean accountNonExpired;
+    @Column(name = Columns.ACCOUNT_NON_EXPIRED, nullable = true, columnDefinition = "Boolean default true")
+    private boolean accountNonExpired = true;
 
     /**
      * Flag that indicates whether account is expired or not.
      */
-    @Column(name = Columns.ACCOUNT_NON_LOCKED)
-    private boolean accountNonLocked;
+    @Column(name = Columns.ACCOUNT_NON_LOCKED, nullable = true, columnDefinition = "Boolean default true")
+    private boolean accountNonLocked = true;
 
     /**
      * User password.
      */
-    @Column(name = Columns.PASSWORD)
+    @Column(name = Columns.PASSWORD, nullable = false)
     private String password;
 
     /**
      * Password recovery hash.
      */
-    @Column(name = Columns.PASSWORD_RECOVERY_HASH)
+    @Column(name = Columns.PASSWORD_RECOVERY_HASH, nullable = true)
     private String passwordRecoveryHash;
 
     /**
      * User name
      */
-    @Column(name = Columns.USERNAME)
+    @Column(name = Columns.USERNAME, nullable = false)
     private String username;
 
     /**
      * Country
      */
-    @Column(name = Columns.COUNTRY)
+    @Column(name = Columns.COUNTRY, nullable = true)
     private String country;
 
     /**
      * City
      */
-    @Column(name = Columns.CITY)
+    @Column(name = Columns.CITY, nullable = true)
     private String city;
 
     /**
      * Language
      */
-    @Column(name = Columns.LANGUAGE)
+    @Column(name = Columns.LANGUAGE, nullable = true)
     private String language;
 
     /**
      * Address
      */
-    @Column(name = Columns.ADDRESS)
+    @Column(name = Columns.ADDRESS, nullable = true)
     private String address;
 
     /**
@@ -152,7 +153,7 @@ public class User extends Auditable implements UserDetails {
      */
     @ElementCollection(fetch = FetchType.EAGER)
     @JoinTable(name = UserRole.TABLE, joinColumns = { @JoinColumn(name = UserRole.Columns.USER_ID) })
-    @Column(name = Columns.ROLE, nullable = false)
+    @Column(name = Columns.ROLE, nullable = true)
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 

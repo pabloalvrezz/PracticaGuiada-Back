@@ -129,7 +129,7 @@ public class UserController {
 	 * @param userDto the user dto
 	 * @return the application user dto
 	 */
-	@Secured(Role.ADMINISTRATOR_ROLE)
+	//@Secured(Role.ADMINISTRATOR_ROLE)
 	@PostMapping
 	public UserDto save(@RequestBody @Validated(Create.class) final UserDto userDto) {
 		return this.proxy.save(userDto);
@@ -141,7 +141,7 @@ public class UserController {
 	 * @param userDto the user dto
 	 * @return the application user dto
 	 */
-	@Secured(Role.ADMINISTRATOR_ROLE)
+	//@Secured(Role.ADMINISTRATOR_ROLE)
 	@PutMapping
 	public UserDto update(@RequestBody @Validated(Update.class) final UserDto userDto) {
 		try {

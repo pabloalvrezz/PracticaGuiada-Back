@@ -12,11 +12,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.izertis.abstractions.filter.AbstractJpaSpecification;
 import com.izertis.abstractions.filter.EntityFilter;
-import com.izertis.baseapp.service.model.Prices;
 import com.izertis.baseapp.service.model.Product;
 import com.izertis.baseapp.service.model.Product_;
 import com.izertis.baseapp.service.model.Type;
-import com.izertis.baseapp.service.model.User;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -50,7 +48,7 @@ public class ProductFilter extends AbstractJpaSpecification<Product> implements 
 			predicates
 					.add(this.createContainsIgnoreCase(root, criteriaBuilder, Product_.DESCRIPTION, this.description));
 
-		if (stock != 0)
+		if (stock > 0)
 			predicates.add(this.createEquals(root, criteriaBuilder, Product_.STOCK, this.stock));
 
 		if (this.enable != null)

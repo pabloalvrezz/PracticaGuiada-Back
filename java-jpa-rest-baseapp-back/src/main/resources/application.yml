@@ -73,6 +73,7 @@ app:
       - /swagger-resources/**
       - /v3/**
       - /doc.html
+      - /user
       - /product
       - /product/search
       - /product/{id}

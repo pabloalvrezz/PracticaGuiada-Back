@@ -115,7 +115,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @Override
     public Product update(Product entity) throws NoSuchEntityException {
-
+                
         return this.productRepository.save(entity);
     }
 
