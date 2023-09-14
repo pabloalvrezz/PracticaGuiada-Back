@@ -1,5 +1,6 @@
 package com.izertis.baseapp.service.dto;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.constraints.Email;
@@ -8,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 
+import com.izertis.baseapp.service.model.Product;
 import com.izertis.baseapp.service.model.Role;
 import com.izertis.baseapp.service.util.ValidationConstants;
 import com.izertis.baseapp.service.validation.group.Create;
@@ -129,4 +131,5 @@ public class UserDto extends AuditableDto {
      */
     private Integer version;
 
+    private List<Product> favourites;
 }

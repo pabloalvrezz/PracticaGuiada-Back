@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 
 import com.izertis.baseapp.service.model.Prices;
 import com.izertis.baseapp.service.model.Type;
+import com.izertis.baseapp.service.model.User;
 import com.izertis.baseapp.service.validation.group.Create;
 import com.izertis.baseapp.service.validation.group.Update;
 import com.izertis.libraries.audit.dto.AuditableDto;
@@ -54,4 +55,6 @@ public class ProductDto extends AuditableDto {
     private double activePrice;
 
     private List<Prices> price;
+    
+    private List<User> users;
 }

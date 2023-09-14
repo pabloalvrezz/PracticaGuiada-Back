@@ -1,5 +1,6 @@
 package com.izertis.baseapp.service.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -8,6 +9,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -19,11 +21,14 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -63,8 +68,7 @@ public class User extends Auditable implements UserDetails {
      */
     @Id
     @GeneratedValue(generator = JpaConstants.HIBERNATE_UUID_GENERATOR_NAME)
-    @GenericGenerator(name = JpaConstants.HIBERNATE_UUID_GENERATOR_NAME, 
-    strategy = JpaConstants.HIBERNATE_UUID_GENERATOR_STRATEGY)
+    @GenericGenerator(name = JpaConstants.HIBERNATE_UUID_GENERATOR_NAME, strategy = JpaConstants.HIBERNATE_UUID_GENERATOR_STRATEGY)
     @Column(name = Columns.ID)
     @EqualsAndHashCode.Include
     private String id;
@@ -149,6 +153,12 @@ public class User extends Auditable implements UserDetails {
     private String address;
 
     /**
+     * Favourite products
+     */
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = "Favourite_Products", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<Product> favourites = new ArrayList<Product>();
+    /**
      * Role list.
      */
     @ElementCollection(fetch = FetchType.EAGER)
@@ -162,6 +172,30 @@ public class User extends Auditable implements UserDetails {
      */
     @Version
     private Integer version;
+
+    /**
+     * Metodo usado para añadir un favorito a la lista
+     * de favoritos de cada usuario
+     * 
+     * @param product
+     *            que se quiere añadir a la lista
+     */
+    public void addFavourite(Product product) {
+        favourites.add(product);
+        product.getUser().add(this);
+    }
+
+    /**
+     * Metodo usado para eliminar un favorito de la lista
+     * de favoritos de cada usuario
+     * 
+     * @param product
+     *            que se quiere eliminar a la lista
+     */
+    public void removeFavourite(Product product) {
+        favourites.remove(product);
+        product.getUser().remove(this);
+    }
 
     /*
      * (non-Javadoc)
