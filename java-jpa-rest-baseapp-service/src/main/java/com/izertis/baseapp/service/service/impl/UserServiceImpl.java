@@ -137,9 +137,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public Page<User> findPaginated(final UserFilter filter, final Pageable pageable) {
         Page<User> page;
-
+        
         if (this.solrEnabled) {
             page = this.userSolrMapper.convertFromSolr(this.userSolrRepository.findAll(filter, pageable));
+                   
         } else {
             page = this.userRepository.findAll(filter, pageable);
         }

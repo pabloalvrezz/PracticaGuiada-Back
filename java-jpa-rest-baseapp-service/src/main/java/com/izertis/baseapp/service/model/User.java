@@ -157,9 +157,9 @@ public class User extends Auditable implements UserDetails {
      * Favourite products
      */
     @JsonIgnore
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "User_Favourites", joinColumns = @JoinColumn(name = "UserId"), inverseJoinColumns = @JoinColumn(name = "ProductId"))
-    private List<Product> favourites = new ArrayList<Product>();
+    private Set<Product> favourites = new HashSet<Product>();
 
     /**
      * Role list.

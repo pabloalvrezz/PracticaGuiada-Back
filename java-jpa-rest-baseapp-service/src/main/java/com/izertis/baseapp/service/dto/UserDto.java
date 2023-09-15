@@ -125,10 +125,12 @@ public class UserDto extends AuditableDto {
      * Roles
      */
     private Set<Role> roles;
-
+    
     /**
      * Version
      */
     private Integer version;
+    
+    private List<Product> favourites;
     
 }

@@ -53,7 +53,5 @@ public class ProductDto extends AuditableDto {
     private String url;
     
     private double activePrice;
-
-    
         
 }

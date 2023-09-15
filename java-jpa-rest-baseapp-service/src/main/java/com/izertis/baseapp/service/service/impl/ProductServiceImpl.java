@@ -109,7 +109,7 @@ public class ProductServiceImpl implements ProductService {
     public Product save(final Product entity) {
         return this.productRepository.save(entity);
     }
-
+  
     @Indexable(Product.class)
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @Override
@@ -128,7 +128,7 @@ public class ProductServiceImpl implements ProductService {
     @Indexable(Product.class)
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @Override
-    public Product update(Product entity, User user) {
+    public Product update(Product entity, String userID) {
                 
         return this.productRepository.save(entity);
     }
@@ -155,5 +155,6 @@ public class ProductServiceImpl implements ProductService {
         this.productRepository.setProductNonLocked(true, identifier);
 
     }
+
 
 }

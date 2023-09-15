@@ -168,7 +168,6 @@ public class ProductController {
     @PostMapping
     public ProductDto save(@RequestBody @Validated(Create.class) final ProductDto dto) {
         return this.productProxy.save(dto);
-
     }
 
     /*

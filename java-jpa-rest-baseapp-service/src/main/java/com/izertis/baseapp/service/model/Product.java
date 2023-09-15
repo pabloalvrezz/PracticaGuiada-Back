@@ -64,11 +64,12 @@ public class Product extends Auditable {
     private Type tipo;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Prices> prices = new ArrayList<Prices>();
 
-   @ManyToMany(mappedBy = "favourites")
-   private List<User> users = new ArrayList<User>();
+    @JsonIgnore
+    @ManyToMany(mappedBy = "favourites")
+    private List<User> users = new ArrayList<User>();
 
     public void addPrice(Prices price) {
         prices.add(price);
@@ -80,13 +81,12 @@ public class Product extends Auditable {
         prices.remove(price);
         price.setProduct(null);
     }
-    
-    
+
     public void addUsers(User user) {
         users.add(user);
         user.getFavourites().add(this);
     }
-    
+
     public void removeUsers(User user) {
         users.remove(user);
         user.getFavourites().remove(this);

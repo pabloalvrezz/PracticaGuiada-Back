@@ -56,7 +56,8 @@ public class UserProxyImpl implements UserProxy {
      */
     @Override
     public Optional<UserDto> find(final String identifier) {
-        return this.mapper.convertToDto(this.service.find(identifier));
+       Optional<User> optional =  this.service.find(identifier);
+       return this.mapper.convertToDto(optional);
     }
 
     /**

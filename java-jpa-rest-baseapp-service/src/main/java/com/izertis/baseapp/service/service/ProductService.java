@@ -28,8 +28,6 @@ public interface ProductService
     
     List<Product> findSimilars(Long productId) ;
 
-    Product update(Product convertFromDto, User user);
-
-    
-           
+    Product update(Product convertFromDto, String user);
+                   
 }

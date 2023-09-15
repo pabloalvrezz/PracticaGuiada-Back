@@ -69,13 +69,12 @@ public class PriceProxyImpl implements PriceProxy {
 
     @Override
     public PriceDto save(PriceDto dto, Long productid) {
-        Prices price = this.priceMapper.convertFromDto(dto);
-        Prices savedPrice = this.priceService.save(price, productid);
+        Prices savedPrice = this.priceService.save(this.priceMapper.convertFromDto(dto), productid);
         Optional<ProductDto> productOptional = this.productMapper.convertToDto(this.productService.find(productid));
         Product product = this.productMapper.convertFromDto(productOptional.get());
-        
+
         product.addPrice(savedPrice);
-        
+
         return this.priceMapper.convertToDto(savedPrice);
     }
 

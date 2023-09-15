@@ -76,12 +76,12 @@ public class ProductProxyImpl implements ProductProxy {
 
     @Override
     public ProductDto update(ProductDto dto, String userId) throws NoSuchEntityException {
+        Product product = this.productService.update(this.productMapper.convertFromDto(dto), userId);
         User user = this.userRepository.findById(userId).get();
-        Product product = this.productService.update(this.productMapper.convertFromDto(dto), user);
-
+        
         user.addFavourite(product);
-
-        return this.productMapper.convertToDto(this.productService.update(product, user));
+        
+        return this.productMapper.convertToDto(this.productService.update(product));
     }
 
     @Override

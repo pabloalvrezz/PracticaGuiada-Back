@@ -102,7 +102,9 @@ public class UserController {
      */
     @GetMapping(UserController.Mappings.GET)
     public UserDto getUser(@PathVariable("id") final String id) {
-        return this.proxy.find(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        UserDto userDto = this.proxy.find(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        
+        return userDto;
     }
 
     /**
