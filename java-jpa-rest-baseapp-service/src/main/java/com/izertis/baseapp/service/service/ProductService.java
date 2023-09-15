@@ -3,6 +3,7 @@ package com.izertis.baseapp.service.service;
 import com.izertis.baseapp.service.dto.ProductDto;
 import com.izertis.baseapp.service.filter.ProductFilter;
 import com.izertis.baseapp.service.model.Product;
+import com.izertis.baseapp.service.model.User;
 
 import java.util.List;
 
@@ -25,8 +26,10 @@ public interface ProductService
 
     Product findActivePrice(Long productId);
     
-    List<Product> findSimilars(Long productId);
+    List<Product> findSimilars(Long productId) ;
 
-    Product update(Product entity, String userId);
+    Product update(Product convertFromDto, User user);
+
+    
            
 }

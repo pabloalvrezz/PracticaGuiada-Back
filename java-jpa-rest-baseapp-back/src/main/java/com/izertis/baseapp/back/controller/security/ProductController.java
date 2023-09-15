@@ -128,14 +128,15 @@ public class ProductController {
 
     @PutMapping("/favourite/{id}")
     public ProductDto update(@RequestBody @Validated(Update.class) ProductDto dto,
-            @PathVariable("id") final String userId) {
+            @PathVariable("id") final String userId) throws NoSuchEntityException {
         try {
             return this.productProxy.update(dto, userId);
         }
-        catch( final NoSuchEntityException e) {
+        
+        catch(NoSuchEntityException e)
+        {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        
     }
 
     /**

@@ -67,8 +67,8 @@ public class Product extends Auditable {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Prices> prices = new ArrayList<Prices>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+   @ManyToMany(mappedBy = "favourites")
+   private List<User> users = new ArrayList<User>();
 
     public void addPrice(Prices price) {
         prices.add(price);
@@ -79,6 +79,17 @@ public class Product extends Auditable {
     public void removePrice(Prices price) {
         prices.remove(price);
         price.setProduct(null);
+    }
+    
+    
+    public void addUsers(User user) {
+        users.add(user);
+        user.getFavourites().add(this);
+    }
+    
+    public void removeUsers(User user) {
+        users.remove(user);
+        user.getFavourites().remove(this);
     }
 
 }

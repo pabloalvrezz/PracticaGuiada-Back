@@ -128,14 +128,8 @@ public class ProductServiceImpl implements ProductService {
     @Indexable(Product.class)
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @Override
-    public Product update(Product entity, String userId) {
-        User user = this.userRepository.getById(userId);
-        
-        entity.setUser(user);
-        user.addFavourite(entity);
-        
-        this.userRepository.save(user);
-        
+    public Product update(Product entity, User user) {
+                
         return this.productRepository.save(entity);
     }
 

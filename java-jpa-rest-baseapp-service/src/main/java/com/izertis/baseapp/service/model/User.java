@@ -157,7 +157,8 @@ public class User extends Auditable implements UserDetails {
      * Favourite products
      */
     @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = "User_Favourites", joinColumns = @JoinColumn(name = "UserId"), inverseJoinColumns = @JoinColumn(name = "ProductId"))
     private List<Product> favourites = new ArrayList<Product>();
 
     /**
@@ -184,7 +185,7 @@ public class User extends Auditable implements UserDetails {
      */
     public void addFavourite(Product product) {
         favourites.add(product);
-        product.setUser(this);
+        product.getUsers().add(this);
     }
 
     /**
@@ -196,7 +197,7 @@ public class User extends Auditable implements UserDetails {
      */
     public void removeFavourite(Product product) {
         favourites.remove(product);
-        product.setUser(null);
+        product.getUsers().remove(this);
     }
 
     /*

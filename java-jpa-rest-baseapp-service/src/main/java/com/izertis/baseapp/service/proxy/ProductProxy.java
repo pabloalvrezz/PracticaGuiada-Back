@@ -43,5 +43,7 @@ public interface ProductProxy extends QueryService<ProductDto, Long, ProductFilt
     ProductDto update(ProductDto dto, String userId) throws NoSuchEntityException;
 
     
+
+    
 	 
 }

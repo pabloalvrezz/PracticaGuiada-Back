@@ -13,7 +13,9 @@ import com.izertis.baseapp.service.dto.ProductDto;
 import com.izertis.baseapp.service.filter.ProductFilter;
 import com.izertis.baseapp.service.mapper.ProductMapper;
 import com.izertis.baseapp.service.model.Product;
+import com.izertis.baseapp.service.model.User;
 import com.izertis.baseapp.service.proxy.ProductProxy;
+import com.izertis.baseapp.service.repository.UserRepository;
 import com.izertis.baseapp.service.service.ProductService;
 
 @Service
@@ -24,6 +26,9 @@ public class ProductProxyImpl implements ProductProxy {
 
     @Autowired
     private ProductMapper productMapper;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public Optional<ProductDto> find(Long identifier) {
@@ -70,9 +75,13 @@ public class ProductProxyImpl implements ProductProxy {
     }
 
     @Override
-    public ProductDto update(ProductDto dto, String userId) {
-        return this.productMapper.convertToDto(this.productService.update(this.productMapper.convertFromDto(dto), userId));
-     
+    public ProductDto update(ProductDto dto, String userId) throws NoSuchEntityException {
+        User user = this.userRepository.findById(userId).get();
+        Product product = this.productService.update(this.productMapper.convertFromDto(dto), user);
+
+        user.addFavourite(product);
+
+        return this.productMapper.convertToDto(this.productService.update(product, user));
     }
 
     @Override
