@@ -18,7 +18,9 @@ import com.izertis.baseapp.service.filter.ProductFilter;
 import com.izertis.baseapp.service.mapper.ProductMapper;
 import com.izertis.baseapp.service.model.Prices;
 import com.izertis.baseapp.service.model.Product;
+import com.izertis.baseapp.service.model.User;
 import com.izertis.baseapp.service.repository.ProductRepository;
+import com.izertis.baseapp.service.repository.UserRepository;
 import com.izertis.baseapp.service.service.ProductService;
 import com.izertis.libraries.solr.annotation.Indexable;
 import com.izertis.libraries.solr.annotation.IndexableClass;
@@ -36,6 +38,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductMapper mapper;
+
+    @Autowired
+    private UserRepository userRepository;
 
     // @Autowired
     // private PriceRepository priceRepository;
@@ -88,12 +93,13 @@ public class ProductServiceImpl implements ProductService {
         List<Product> productos = this.productRepository.findAll(); // Lista con todos los productos
         List<Product> similares = new ArrayList<Product>(); // Lista que almacenara todos los productos similares
         Product productoSeleccionado = this.productRepository.findById(productId).get();
-        
-        for(Product product: productos) {
-            if((product.getId() != productoSeleccionado.getId()) && (product.getTipo() == productoSeleccionado.getTipo()))
+
+        for (Product product : productos) {
+            if ((product.getId() != productoSeleccionado.getId())
+                    && (product.getTipo() == productoSeleccionado.getTipo()))
                 similares.add(product);
         }
-        
+
         return similares;
     }
 
@@ -115,7 +121,21 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @Override
     public Product update(Product entity) throws NoSuchEntityException {
-                
+
+        return this.productRepository.save(entity);
+    }
+
+    @Indexable(Product.class)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    @Override
+    public Product update(Product entity, String userId) {
+        User user = this.userRepository.getById(userId);
+        
+        entity.setUser(user);
+        user.addFavourite(entity);
+        
+        this.userRepository.save(user);
+        
         return this.productRepository.save(entity);
     }
 

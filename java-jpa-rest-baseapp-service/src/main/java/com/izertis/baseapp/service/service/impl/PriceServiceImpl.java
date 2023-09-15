@@ -66,9 +66,8 @@ public class PriceServiceImpl implements PriceService {
 
     @Override
     public Prices save(Prices entity, Long productid) {
-        Optional<Product> productOptional = this.productRepository.findById(productid);
-        Product product = productOptional.get();
-
+        Product product = this.productRepository.findById(productid).get();
+        
         entity.setProduct(entity.getProduct());
 
         this.productRepository.save(product);

@@ -10,11 +10,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.izertis.abstractions.exception.NoSuchEntityException;
+import com.izertis.baseapp.service.dto.ProductDto;
 import com.izertis.baseapp.service.dto.UserDto;
 import com.izertis.baseapp.service.filter.UserFilter;
+import com.izertis.baseapp.service.mapper.ProductMapper;
 import com.izertis.baseapp.service.mapper.UserMapper;
+import com.izertis.baseapp.service.model.Product;
 import com.izertis.baseapp.service.model.User;
 import com.izertis.baseapp.service.proxy.UserProxy;
+import com.izertis.baseapp.service.service.ProductService;
 import com.izertis.baseapp.service.service.UserService;
 
 /**
@@ -34,7 +38,19 @@ public class UserProxyImpl implements UserProxy {
      */
     @Autowired
     private UserMapper mapper;
+    
+    /**
+     * ProductDto to entity mapper
+     */
+    @Autowired
+    private ProductMapper productMapper;
 
+    /**
+     * Product service layer
+     */
+    @Autowired
+    private ProductService productService;
+    
     /**
      * {@inheritDoc}
      */
@@ -74,6 +90,10 @@ public class UserProxyImpl implements UserProxy {
     public List<UserDto> save(final Iterable<UserDto> entities) {
         return this.mapper.convertToDto(this.service.save(this.mapper.convertFromDto(entities)));
     }
+    
+    /**
+     * {@inheritDoc}
+     */
 
     /**
      * {@inheritDoc}
@@ -108,5 +128,6 @@ public class UserProxyImpl implements UserProxy {
     public void undelete(final String identifier) {
         this.service.undelete(identifier);
     }
+
 
 }

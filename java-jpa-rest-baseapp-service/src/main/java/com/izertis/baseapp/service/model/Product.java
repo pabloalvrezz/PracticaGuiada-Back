@@ -17,8 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.izertis.baseapp.service.model.User.Columns;
-import com.izertis.baseapp.service.service.impl.ProductServiceImpl;
 import com.izertis.libraries.audit.jpa.model.Auditable;
 
 import lombok.EqualsAndHashCode;
@@ -55,20 +55,21 @@ public class Product extends Auditable {
 
     @Column(name = Columns.ENABLED)
     private boolean enabled;
-    
+
     @Column(name = "Url")
     private String url;
-   
+
     @Enumerated(EnumType.STRING)
-    @Column(name ="Tipo")
+    @Column(name = "Tipo")
     private Type tipo;
-    
+
+    @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Prices> prices = new ArrayList<Prices>();
 
-    @ManyToMany(mappedBy = "favourites")
-    private List<User> user = new ArrayList<User>();
-        
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+
     public void addPrice(Prices price) {
         prices.add(price);
         price.setProduct(this);

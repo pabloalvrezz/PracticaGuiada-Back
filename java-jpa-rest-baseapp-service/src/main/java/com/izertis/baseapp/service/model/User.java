@@ -45,6 +45,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import net.bytebuddy.dynamic.TypeResolutionStrategy.Lazy;
 
 /**
  * Application user.
@@ -155,9 +156,10 @@ public class User extends Auditable implements UserDetails {
     /**
      * Favourite products
      */
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = "Favourite_Products", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Product> favourites = new ArrayList<Product>();
+
     /**
      * Role list.
      */
@@ -182,7 +184,7 @@ public class User extends Auditable implements UserDetails {
      */
     public void addFavourite(Product product) {
         favourites.add(product);
-        product.getUser().add(this);
+        product.setUser(this);
     }
 
     /**
@@ -194,7 +196,7 @@ public class User extends Auditable implements UserDetails {
      */
     public void removeFavourite(Product product) {
         favourites.remove(product);
-        product.getUser().remove(this);
+        product.setUser(null);
     }
 
     /*

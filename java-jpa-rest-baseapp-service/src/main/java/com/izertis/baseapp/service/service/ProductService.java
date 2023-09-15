@@ -26,5 +26,7 @@ public interface ProductService
     Product findActivePrice(Long productId);
     
     List<Product> findSimilars(Long productId);
-       
+
+    Product update(Product entity, String userId);
+           
 }

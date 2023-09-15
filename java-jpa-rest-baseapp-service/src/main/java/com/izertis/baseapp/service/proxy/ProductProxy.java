@@ -2,6 +2,7 @@ package com.izertis.baseapp.service.proxy;
 
 import java.util.List;
 
+import com.izertis.abstractions.exception.NoSuchEntityException;
 import com.izertis.abstractions.service.DeleteService;
 import com.izertis.abstractions.service.QueryService;
 import com.izertis.abstractions.service.SaveService;
@@ -38,5 +39,9 @@ public interface ProductProxy extends QueryService<ProductDto, Long, ProductFilt
 	  * @return an array with the products 
 	  */
 	 List<ProductDto>  findSimilars(Long productId);
+
+    ProductDto update(ProductDto dto, String userId) throws NoSuchEntityException;
+
+    
 	 
 }

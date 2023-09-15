@@ -126,6 +126,18 @@ public class ProductController {
 
     }
 
+    @PutMapping("/favourite/{id}")
+    public ProductDto update(@RequestBody @Validated(Update.class) ProductDto dto,
+            @PathVariable("id") final String userId) {
+        try {
+            return this.productProxy.update(dto, userId);
+        }
+        catch( final NoSuchEntityException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        
+    }
+
     /**
      * Disable the product by its id
      * 

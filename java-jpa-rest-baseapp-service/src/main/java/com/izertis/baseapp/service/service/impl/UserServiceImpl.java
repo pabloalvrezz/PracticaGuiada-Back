@@ -14,8 +14,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.izertis.baseapp.service.dto.UserDto;
 import com.izertis.baseapp.service.filter.UserFilter;
+import com.izertis.baseapp.service.model.Product;
 import com.izertis.baseapp.service.model.User;
+import com.izertis.baseapp.service.repository.ProductRepository;
 import com.izertis.baseapp.service.repository.UserRepository;
 import com.izertis.baseapp.service.service.UserService;
 import com.izertis.baseapp.service.solr.mapper.UserSolrMapper;
@@ -37,6 +40,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
      */
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     /**
      * Spring Data Solr repository for {@link UserSolr}
@@ -76,6 +82,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return this.userRepository.saveAll(entities);
     }
 
+ 
     /**
      * {@inheritDoc}
      *///
@@ -156,4 +163,5 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return this.userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException(String.format("User with username %s not found", username)));
     }
+
 }

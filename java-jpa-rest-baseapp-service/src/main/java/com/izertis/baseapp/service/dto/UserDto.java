@@ -130,6 +130,5 @@ public class UserDto extends AuditableDto {
      * Version
      */
     private Integer version;
-
-    private List<Product> favourites;
+    
 }

@@ -54,7 +54,6 @@ public class ProductDto extends AuditableDto {
     
     private double activePrice;
 
-    private List<Prices> price;
     
-    private List<User> users;
+        
 }

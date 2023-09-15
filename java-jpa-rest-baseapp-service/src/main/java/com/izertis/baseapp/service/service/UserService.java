@@ -3,6 +3,7 @@ package com.izertis.baseapp.service.service;
 import com.izertis.abstractions.service.DeleteService;
 import com.izertis.abstractions.service.QueryService;
 import com.izertis.abstractions.service.SaveService;
+import com.izertis.baseapp.service.dto.UserDto;
 import com.izertis.baseapp.service.filter.UserFilter;
 import com.izertis.baseapp.service.model.User;
 
@@ -18,4 +19,6 @@ public interface UserService
      *            The identifier
      */
     void undelete(final String identifier);
+
+    
 }

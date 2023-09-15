@@ -46,7 +46,7 @@ public class ProductProxyImpl implements ProductProxy {
     }
 
     @Override
-    public List<ProductDto>  findSimilars(Long productId) {
+    public List<ProductDto> findSimilars(Long productId) {
         return this.productMapper.convertToDto(this.productService.findSimilars(productId));
     }
 
@@ -67,6 +67,12 @@ public class ProductProxyImpl implements ProductProxy {
 
         return this.productMapper.convertToDto(this.productService.update(product));
 
+    }
+
+    @Override
+    public ProductDto update(ProductDto dto, String userId) {
+        return this.productMapper.convertToDto(this.productService.update(this.productMapper.convertFromDto(dto), userId));
+     
     }
 
     @Override

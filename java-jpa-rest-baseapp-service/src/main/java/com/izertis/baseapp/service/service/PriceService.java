@@ -16,7 +16,7 @@ SaveService<Prices>, DeleteService<Prices, Long>{
      * 
      * @param el id del prodcuto
      * 
-     * @return el dto del precio ya guardado
+     * @return del precio ya guardado
      */
     Prices save(Prices entity, Long productid);
 
